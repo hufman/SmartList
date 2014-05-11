@@ -1,6 +1,7 @@
 import sys
 PY2 = sys.version_info.major == 2
 
+
 class SmartDictFromList(object):
 	def __init__(self, list, transform=None, untransform=None, filter=None):
 		self.list = list
@@ -63,7 +64,7 @@ class SmartDictFromList(object):
 
 	# dict functionality
 	def clear(self):
-		for index in range(len(self.list)+1, -1, -1):
+		for index in range(len(self.list) + 1, -1, -1):
 			if self.filter(self.list[index]):
 				del self.list[index]
 
@@ -136,16 +137,16 @@ class SmartDictFromList(object):
 
 	else:
 		def items(self):
-			return DictView(self, lambda x:x)
+			return DictView(self, lambda x: x)
 
 		def keys(self):
-			return DictView(self, lambda x:x[0])
+			return DictView(self, lambda x: x[0])
 
 		def values(self):
-			return DictView(self, lambda x:x[1])
+			return DictView(self, lambda x: x[1])
 
 		def iter(self):
-			return iter(DictView(self, lambda x:x[0]))
+			return iter(DictView(self, lambda x: x[0]))
 
 	def remove(self, elem):
 		self.list.remove(self.untransform(elem))

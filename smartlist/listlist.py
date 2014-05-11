@@ -23,7 +23,7 @@ class SmartListFromList(object):
 			if self.filter(self.list[index]) and \
 			   self.transform(self.list[index]) == elem:
 				return index
-		raise ValueError("%s is not in list"%(elem,))
+		raise ValueError("%s is not in list" % (elem,))
 
 	def untransformed_index(self, index):
 		if index >= 0:
@@ -35,7 +35,7 @@ class SmartListFromList(object):
 					return i
 		else:
 			counted = 0
-			for i in range(len(self.list)-1, -1, -1):
+			for i in range(len(self.list) - 1, -1, -1):
 				if self.filter(self.list[i]):
 					counted = counted - 1
 				if counted == index:
@@ -106,7 +106,7 @@ class SmartListFromList(object):
 				counted = counted + 1
 			if self.transform(self.list[index]) == elem:
 				return counted
-		return ValueError("%s is not in list"%(elem,))
+		return ValueError("%s is not in list" % (elem,))
 
 	def count(self, elem):
 		counted = 0
@@ -131,7 +131,7 @@ class SmartListFromList(object):
 		for index in range(0, len(self.list)):
 			if self.filter(self.list[index]):
 				indices.append(index)
-		for l,r in zip(indices, reversed(indices)):
+		for l, r in zip(indices, reversed(indices)):
 			if l >= r:
 				break
 			c = self.list[l]
