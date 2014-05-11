@@ -23,7 +23,7 @@ class SmartListFromList(object):
 			if self.filter(self.list[index]) and \
 			   self.transform(self.list[index]) == elem:
 				return index
-		return ValueError("%s is not in list"%(elem,))
+		raise ValueError("%s is not in list"%(elem,))
 
 	def untransformed_index(self, index):
 		if index >= 0:
@@ -40,7 +40,7 @@ class SmartListFromList(object):
 					counted = counted - 1
 				if counted == index:
 					return i
-		return IndexError("list index out of range")
+		raise IndexError("list index out of range")
 
 	# list magic methods
 	def __len__(self):

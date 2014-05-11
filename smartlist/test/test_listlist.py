@@ -4,7 +4,7 @@ import smartlist
 class TestListList(unittest.TestCase):
 	def test_serialize(self):
 		baselist = [1, 2, 3]
-		mylist = smartlist.list(baselist, 
+		mylist = smartlist.list(baselist,
 		    transform=lambda x:str(x),
 		    untransform=lambda x:int(x)
 		)
@@ -18,7 +18,7 @@ class TestListList(unittest.TestCase):
 
 	def test_modification_orig(self):
 		baselist = [1, 2, 3]
-		mylist = smartlist.list(baselist, 
+		mylist = smartlist.list(baselist,
 		    transform=lambda x:str(x),
 		    untransform=lambda x:int(x)
 		)
@@ -33,7 +33,7 @@ class TestListList(unittest.TestCase):
 
 	def test_modification_other(self):
 		baselist = [1, 2, 3]
-		mylist = smartlist.list(baselist, 
+		mylist = smartlist.list(baselist,
 		    transform=lambda x:str(x),
 		    untransform=lambda x:int(x)
 		)
@@ -53,7 +53,7 @@ class TestListList(unittest.TestCase):
 
 	def test_filtered(self):
 		baselist = [1, 2, 3]
-		evenlist = smartlist.list(baselist, 
+		evenlist = smartlist.list(baselist,
 		    transform=lambda x:str(x),
 		    untransform=lambda x:int(x),
 		    filter=lambda x:x%2==0
