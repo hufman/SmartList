@@ -14,7 +14,7 @@ class TestDictList(unittest.TestCase):
 		keys = [1, 2, 3]
 		values = ["a", "b", "t"]
 		items = list(zip(keys, values))
-		if sys.version_info.major == 2:
+		if sys.version_info[0] == 2:
 			self.assertEqual(keys, mydict.keys())
 			self.assertEqual(values, mydict.values())
 			self.assertEqual(items, mydict.items())
@@ -27,14 +27,14 @@ class TestDictList(unittest.TestCase):
 			iteritems = mydict.items()
 		# check main dict for contains
 		for key in keys:
-			self.assertIn(key, mydict)
+			self.assertTrue(key in mydict)
 		# check item views for contains
 		for key in keys:
-			self.assertIn(key, iterkeys)
+			self.assertTrue(key in iterkeys)
 		for value in values:
-			self.assertIn(value, itervalues)
+			self.assertTrue(value in itervalues)
 		for item in items:
-			self.assertIn(item, iteritems)
+			self.assertTrue(item in iteritems)
 		# check that the iterators are correct
 		self.assertEquals(keys, list(mydict.keys()))
 		self.assertEquals(values, list(mydict.values()))
