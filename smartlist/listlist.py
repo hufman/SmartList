@@ -1,3 +1,11 @@
+import sys
+PY2 = sys.version_info[0] == 2
+if PY2:
+	irange = xrange
+else:
+	irange = range
+
+
 class SmartListFromList(object):
 	def __init__(self, list, transform=None, untransform=None, filter=None):
 		self.list = list
@@ -19,7 +27,7 @@ class SmartListFromList(object):
 		return True
 
 	def untransformed_index_of(self, elem):
-		for index in range(0, len(self.list)):
+		for index in irange(0, len(self.list)):
 			if self.filter(self.list[index]) and \
 			   self.transform(self.list[index]) == elem:
 				return index
@@ -28,14 +36,14 @@ class SmartListFromList(object):
 	def untransformed_index(self, index):
 		if index >= 0:
 			counted = -1
-			for i in range(0, len(self.list)):
+			for i in irange(0, len(self.list)):
 				if self.filter(self.list[i]):
 					counted = counted + 1
 				if counted == index:
 					return i
 		else:
 			counted = 0
-			for i in range(len(self.list) - 1, -1, -1):
+			for i in irange(len(self.list) - 1, -1, -1):
 				if self.filter(self.list[i]):
 					counted = counted - 1
 				if counted == index:
@@ -45,7 +53,7 @@ class SmartListFromList(object):
 	# list magic methods
 	def __len__(self):
 		counted = 0
-		for index in range(0, len(self.list)):
+		for index in irange(0, len(self.list)):
 			if self.filter(self.list[index]):
 				counted = counted + 1
 		return counted
@@ -101,7 +109,7 @@ class SmartListFromList(object):
 
 	def index(self, elem):
 		counted = -1
-		for index in range(0, len(self.list)):
+		for index in irange(0, len(self.list)):
 			if self.filter(self.list[index]):
 				counted = counted + 1
 			if self.transform(self.list[index]) == elem:
@@ -110,7 +118,7 @@ class SmartListFromList(object):
 
 	def count(self, elem):
 		counted = 0
-		for index in range(0, len(self.list)):
+		for index in irange(0, len(self.list)):
 			if self.filter(self.list[index]) and \
 			   self.transform(self.list[index]) == elem:
 				counted = counted + 1
@@ -118,17 +126,17 @@ class SmartListFromList(object):
 
 	def sort(self):
 		indices = []
-		for index in range(0, len(self.list)):
+		for index in irange(0, len(self.list)):
 			if self.filter(self.list[index]):
 				indices.append(index)
 		sorted_indices = sorted(indices, key=lambda i: self.transform(self.list[i]))
 		sorted_items = [self.list[i] for i in sorted_indices]
-		for index in range(0, len(indices)):
+		for index in irange(0, len(indices)):
 			self.list[indices[index]] = sorted_items[index]
 
 	def reverse(self):
 		indices = []
-		for index in range(0, len(self.list)):
+		for index in irange(0, len(self.list)):
 			if self.filter(self.list[index]):
 				indices.append(index)
 		for l, r in zip(indices, reversed(indices)):

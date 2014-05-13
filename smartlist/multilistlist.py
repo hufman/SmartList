@@ -1,3 +1,11 @@
+import sys
+PY2 = sys.version_info[0] == 2
+if PY2:
+	irange = xrange
+else:
+	irange = range
+
+
 class MultiListFromList(object):
 	def __init__(self, list, transform=None, untransform=None, filter=None):
 		self.list = list
@@ -19,7 +27,7 @@ class MultiListFromList(object):
 		return True
 
 	def untransformed_index_of(self, elem):
-		for index in range(0, len(self.list)):
+		for index in irange(0, len(self.list)):
 			if self.filter(self.list[index]):
 				for obj in self.transform(self.list[index]):
 					if obj == elem:
@@ -27,11 +35,11 @@ class MultiListFromList(object):
 		raise ValueError("%s is not in list" % (elem,))
 
 	def untransformed_index_of_ex(self, elem):
-		for index in range(0, len(self.list)):
+		for index in irange(0, len(self.list)):
 			mainobj = self.list[index]
 			if self.filter(mainobj):
 				subobj = self.transform(mainobj)
-				for subindex in range(0, len(subobj)):
+				for subindex in irange(0, len(subobj)):
 					if subobj[subindex] == elem:
 						return index, subindex
 		raise ValueError("%s is not in list" % (elem,))
@@ -39,19 +47,19 @@ class MultiListFromList(object):
 	def untransformed_index_ex(self, index):
 		if index >= 0:
 			counted = -1
-			for i in range(0, len(self.list)):
+			for i in irange(0, len(self.list)):
 				mainobj = self.list[i]
 				if self.filter(mainobj):
-					for j in range(0, len(self.transform(mainobj))):
+					for j in irange(0, len(self.transform(mainobj))):
 						counted = counted + 1
 						if counted == index:
 							return i, j
 		else:
 			counted = 0
-			for i in range(len(self.list) - 1, -1, -1):
+			for i in irange(len(self.list) - 1, -1, -1):
 				mainobj = self.list[i]
 				if self.filter(mainobj):
-					for j in range(len(self.transform(mainobj)) -1, -1, -1):
+					for j in irange(len(self.transform(mainobj)) -1, -1, -1):
 						counted = counted - 1
 						if counted == index:
 							return i, j
@@ -63,7 +71,7 @@ class MultiListFromList(object):
 	# list magic methods
 	def __len__(self):
 		counted = 0
-		for index in range(0, len(self.list)):
+		for index in irange(0, len(self.list)):
 			if self.filter(self.list[index]):
 				counted = counted + len(self.transform(self.list[index]))
 		return counted
@@ -154,7 +162,7 @@ class MultiListFromList(object):
 
 	def index(self, elem):
 		counted = -1
-		for index in range(0, len(self.list)):
+		for index in irange(0, len(self.list)):
 			if self.filter(self.list[index]):
 				for obj in self.transform(self.list[index]):
 					counted = counted + 1
@@ -164,7 +172,7 @@ class MultiListFromList(object):
 
 	def count(self, elem):
 		counted = 0
-		for index in range(0, len(self.list)):
+		for index in irange(0, len(self.list)):
 			if self.filter(self.list[index]):
 				for obj in self.transform(self.list[index]):
 					if obj == elem:
@@ -173,7 +181,7 @@ class MultiListFromList(object):
 
 	def sort(self):
 		subobjects = sorted(list(self))
-		for index in range(0, len(self.list)):
+		for index in irange(0, len(self.list)):
 			if self.filter(self.list[index]):
 				obj = self.transform(self.list[index])
 				newobj = self.untransform(subobjects[:len(obj)])
@@ -183,7 +191,7 @@ class MultiListFromList(object):
 	def reverse(self):
 		subobjects = list(self)
 		subobjects.reverse()
-		for index in range(0, len(self.list)):
+		for index in irange(0, len(self.list)):
 			if self.filter(self.list[index]):
 				obj = self.transform(self.list[index])
 				newobj = self.untransform(subobjects[:len(obj)])
