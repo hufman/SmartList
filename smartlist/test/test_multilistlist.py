@@ -13,6 +13,10 @@ class TestMultiListList(unittest.TestCase):
 		self.assertEqual([1, 2, 3, 4], list(mylist))
 		self.assertEqual(1, mylist.count(2))
 		self.assertEqual(2, mylist.index(3))
+		self.assertEqual(2, mylist[1])
+		self.assertEqual([1, 2], mylist[:2])
+		self.assertEqual([2, 3], mylist[1:3])
+		self.assertEqual([3, 2], mylist[2:0:-1])
 		self.assertTrue(2 in mylist)
 		reallist = [1, 2, 3, 4]
 		for item in mylist:

@@ -59,8 +59,11 @@ class SmartListFromList(object):
 		return counted
 
 	def __getitem__(self, index):
-		untransformed_index = self.untransformed_index(index)
-		return self.transform(self.list[untransformed_index])
+		if isinstance(index, slice):
+			return list(self)[index]
+		else:
+			untransformed_index = self.untransformed_index(index)
+			return self.transform(self.list[untransformed_index])
 
 	def __setitem__(self, index, elem):
 		untransformed_index = self.untransformed_index(index)

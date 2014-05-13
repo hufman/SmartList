@@ -77,9 +77,12 @@ class MultiListFromList(object):
 		return counted
 
 	def __getitem__(self, index):
-		untransformed_index, subindex = self.untransformed_index_ex(index)
-		obj = self.transform(self.list[untransformed_index])
-		return obj[subindex]
+		if isinstance(index, slice):
+			return list(self)[index]
+		else:
+			untransformed_index, subindex = self.untransformed_index_ex(index)
+			obj = self.transform(self.list[untransformed_index])
+			return obj[subindex]
 
 	def __setitem__(self, index, elem):
 		untransformed_index, subindex = self.untransformed_index_ex(index)
